@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Profil Pengguna</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+            min-height: 100vh;
+        }
+        .profile-card {
+            background: #fff;
+            border-radius: 18px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            padding: 2.5rem 2rem 2rem 2rem;
+            max-width: 420px;
+            margin: 60px auto;
+        }
+        .profile-avatar {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1.2rem;
+            box-shadow: 0 2px 8px #0002;
+        }
+        .profile-card h2 {
+            font-weight: 700;
+            color: #0072ff;
+            margin-bottom: 0.5rem;
+        }
+        .profile-info {
+            font-size: 1.08rem;
+        }
+        .profile-label {
+            color: #888;
+            font-size: 0.97rem;
+        }
+        .btn-warning {
+            background: #ffc107;
+            border: none;
+            color: #222;
+        }
+        .btn-warning:hover {
+            background: #e0a800;
+        }
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #333;
+            border: none;
+        }
+        .btn-secondary:hover {
+            background: #bdbdbd;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-card text-center">
+        <img src="https://ui-avatars.com/api/?name=User&background=0072ff&color=fff&size=128" alt="Avatar" class="profile-avatar">
+        <h2 th:text="${profile.namaLengkap}">Nama Lengkap</h2>
+        <div class="profile-info mt-3">
+            <div>
+                <span class="profile-label">Username</span><br>
+                <span th:text="${profile.username}">username</span>
+            </div>
+            <div class="mt-2">
+                <span class="profile-label">Email</span><br>
+                <span th:text="${profile.email}">email@email.com</span>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between mt-4">
+            <a href="/pengaturan" class="btn btn-warning px-4">Edit Profil</a>
+            <a href="/beranda" class="btn btn-secondary px-4">Kembali</a>
+        </div>
+    </div>
+</body>
+</html>

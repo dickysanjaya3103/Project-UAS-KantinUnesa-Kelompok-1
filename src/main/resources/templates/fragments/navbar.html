@@ -1,0 +1,46 @@
+<!-- Navbar -->
+<style>
+  .navbar-custom {
+    background: linear-gradient(to right, #00b4d8, #00cba9);
+  }
+  .navbar-brand {
+    font-weight: bold;
+    font-size: 1.4rem;
+    color: #222;
+  }
+  .navbar-brand span {
+    color: #ffd600;
+  }
+  .dropdown-toggle,
+  .dropdown-menu {
+    background: transparent;
+  }
+  .navbar .dropdown-menu {
+    min-width: 140px;
+  }
+  .navbar .dropdown-item:active {
+    background: #00b4d8;
+    color: #fff;
+  }
+</style>
+<nav class="navbar navbar-expand-lg navbar-custom sticky-top" th:fragment="body">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Kantin <span>Unesa</span></a>
+    <a href="/keranjang" class="btn btn-outline-light me-3 position-relative">
+    <i class="fas fa-shopping-cart"></i>
+    <span class="visually-hidden">Keranjang</span>
+    </a>
+    <div class="dropdown ms-auto">
+      <a class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <span class="text-white me-3">Hi, <span th:text="${session.username}">User</span></span>
+        <img src="/images/FotoDicky.jpg" class="rounded-circle" alt="profil" style="width: 32px; height: 32px; object-fit: cover;" />
+      </a>
+      <ul class="dropdown-menu dropdown-menu-end">
+        <li><a class="dropdown-item" href="/profil">👤 Profil</a></li>
+        <li><a class="dropdown-item" href="/pengaturan">⚙️ Pengaturan</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item text-danger" href="/logout">🚪 Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>

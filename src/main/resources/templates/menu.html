@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title th:text="'Menu di ' + ${kantin.nama}">Menu Kantin</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+  <!-- Navbar -->
+  <div th:replace="fragments/navbar :: body"></div>
+
+  <!-- Tombol Kembali ke Beranda (floating kiri atas) -->
+   <button id="tombolTambahMenu" class="btn btn-warning floating-tambah">
+  + Tambah
+  </button>
+  <a href="/beranda" class="btn btn-outline-info floating-kembali">
+    <i class="fa fa-arrow-left"></i> Kembali ke Beranda
+  </a>
+
+  <div class="container py-4">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 mx-auto">
+        <div class="hero-menu text-center">
+          <h1 th:text="'Menu di ' + ${kantin.nama}">Menu di Kantin</h1>
+          <div class="desc" th:text="${kantin.deskripsi} ?: 'makanan dan minuman'">makanan dan minuman</div>
+          <img th:src="@{${kantin.gambar}}" alt="Gambar Kantin" th:if="${kantin.gambar != null}">
+        </div>
+      </div>
+    </div>
+<!-- Form Urutkan Menu (Tampilan Kecil dan Ringkas di Kanan Atas) -->
+<div class="d-flex justify-content-end mb-3">
+  <form method="get" th:action="@{'/menu/' + ${kantin.nama}}">
+    <div class="input-group input-group-sm" style="max-width: 200px;">
+      <label class="input-group-text" for="sort">Urut:</label>
+      <select name="sort" id="sort" class="form-select form-select-sm" onchange="this.form.submit()">
+        <option value="" th:selected="${sort == null or sort == ''}">Default</option>
+        <option th:value="'harga_asc'" th:selected="${sort == 'harga_asc'}">Termurah</option>
+        <option th:value="'harga_desc'" th:selected="${sort == 'harga_desc'}">Termahal</option>
+      </select>
+    </div>
+  </form>
+</div>
+
+    <div class="row">
+      <!-- Form tambah menu floating, hidden by default -->
+<div id="formTambahMenuWrapper" style="display:none; position:fixed; top:120px; right:24px; z-index:1100; max-width:350px; width:100%;">
+  <div class="menu-float-form card shadow">
+    <div class="card-body py-3">
+      <form th:action="@{'/menu/' + ${kantin.nama} + '/tambah'}" method="post" class="row g-2 align-items-center">
+        <div class="col-12 mb-2">
+          <input type="text" name="namaMenu" class="form-control form-control-sm" placeholder="Nama Menu" required>
+        </div>
+        <div class="col-12 mb-2">
+          <input type="number" name="harga" class="form-control form-control-sm" placeholder="Harga (Rp)" min="0" required>
+        </div>
+        <div class="col-12">
+          <button type="submit" class="btn btn-success w-100 fw-bold">Tambah</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+      <!-- Daftar menu (kiri) -->
+      <div class="col-lg-8 order-lg-1">
+        <div class="menu-section">
+          <div th:each="menu : ${menuList}" class="menu-card">
+            <div class="menu-title" th:text="${menu.nama}">Nama Menu</div>
+            <div class="menu-price" th:text="'Rp ' + ${menu.harga}">Rp 0</div>
+            <form th:action="@{/keranjang/tambah}" method="post" style="display:inline;">
+            <input type="hidden" name="id" th:value="${menu.id}" />
+            <input type="hidden" name="nama" th:value="${menu.nama}" />
+            <input type="hidden" name="harga" th:value="${menu.harga}" />
+            <input type="hidden" name="kantin" th:value="${kantin.nama}" />
+            <button type="submit" class="btn btn-primary btn-sm">
+          <i class="fas fa-shopping-cart"></i> Beli
+        </button>
+    </form>
+          </div>
+          <div th:if="${#lists.isEmpty(menuList)}" class="text-muted mt-4 w-100 text-center">
+            Belum ada menu di kantin ini.
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+  const tombolTambah = document.getElementById('tombolTambahMenu');
+  const formTambah = document.getElementById('formTambahMenuWrapper');
+  tombolTambah.addEventListener('click', function() {
+    formTambah.style.display = (formTambah.style.display === 'none' || formTambah.style.display === '') ? 'block' : 'none';
+  });
+  document.addEventListener('mousedown', function(e) {
+    if (formTambah.style.display === 'block' && !formTambah.contains(e.target) && e.target !== tombolTambah) {
+      formTambah.style.display = 'none';
+    }
+  });
+</script>
+</body>
+</html>
