@@ -15,5 +15,5 @@ Website ini dibuat oleh **Kelompok 1** sebagai proyek pengembangan sistem pemesa
 - **Hafiyyan Lintang Arizaki** – 24111814048  
 - **Fandy Ahmad Febrian** – 24111814131  
 - **Chantika Putri Meunasah** – 24111814037  
-- **Farid Hanif Fathan** – 24111814106  
+- **Farid Hanif Fathan** – 24111814106 
 - **Keisa Aushafa Dzihni** – 24111814109  
